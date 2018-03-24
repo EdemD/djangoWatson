@@ -28,4 +28,3 @@ pysolr==3.6.0
 virtualenv==15.0.1
 watson-developer-cloud==0.25.2
 Werkzeug==0.12.1
-psycopg2==2.6.2
