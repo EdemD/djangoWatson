@@ -28,8 +28,7 @@ def post_list(request):
 
     for post in posts:
         posting = post.text
-        toneObj= json.dumps(tone_analyzer.tone(tone_input=posting,
-                                   content_type="text/plain"), indent=2)
+        toneObj= json.dumps(tone_analyzer.tone(posting,"text/plain"), indent=2)
         post.toneObj2 = json.loads(toneObj)
         post.angerScore = post.toneObj2['document_tone']['tone_categories'][0]['tones'][0]['score']
         post.disgustScore = post.toneObj2['document_tone']['tone_categories'][0]['tones'][1]['score']
