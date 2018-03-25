@@ -27,16 +27,27 @@ def post_list(request):
     # print(json.dumps(translation, indent=2, ensure_ascii=False))
 
     for post in posts:
-        data = json.dumps(tone_analyzer.tone(post.text, 'text/plain', sentences=None, tones='emotion', content_language=None, accept_language=None), indent=1)  # converting to string and storing in the data
-        j = json.loads(data);
-        post.info = j['document_tone']['tone_categories'][0]['tones']
+        posting = post.text
+        toneObj= json.dumps(tone_analyzer.tone(tone_input=posting,
+                                   content_type="text/plain"), indent=2)
+        post.toneObj2 = json.loads(toneObj)
+        post.angerScore = post.toneObj2['document_tone']['tone_categories'][0]['tones'][0]['score']
+        post.disgustScore = post.toneObj2['document_tone']['tone_categories'][0]['tones'][1]['score']
+        post.fearScore = post.toneObj2['document_tone']['tone_categories'][0]['tones'][2]['score']
+        post.joyScore = post.toneObj2['document_tone']['tone_categories'][0]['tones'][3]['score']
+        post.sadScore = post.toneObj2['document_tone']['tone_categories'][0]['tones'][4]['score']
+       
+        #data = json.dumps(tone_analyzer.tone(post.text, 'text/plain', sentences=None, tones='emotion', content_language=None, accept_language=None), indent=1)  # converting to string and storing in the data
+        #j = json.loads(data);
+        #post.info = j['document_tone']['tone_categories'][0]['tones']
         # post.info = json.dumps(post.info);
-        post.angerScore = post.info[0]['score']
-        post.disgustScore = post.info[1]['score']
-        post.fearScore = post.info[2]['score']
-        post.joyScore = post.info[3]['score']
-        post.sadScore = post.info[4]['score']
+        #post.angerScore = post.info[0]['score']
+        #post.disgustScore = post.info[1]['score']
+        #post.fearScore = post.info[2]['score']
+        #post.joyScore = post.info[3]['score']
+        #post.sadScore = post.info[4]['score']
         # print(post.info[0]['tone_name'])
+        
         translation = language_translator.translate(
             text=post.text,
             source='en',
