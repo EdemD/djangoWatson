@@ -27,7 +27,7 @@ def post_list(request):
     # print(json.dumps(translation, indent=2, ensure_ascii=False))
 
     for post in posts:
-        data = json.dumps(tone_analyzer.tone(tone_input=post.text, content_type='text/plain', sentences=None, tones='emotion', content_language=None, accept_language=None), indent=1)  # converting to string and storing in the data
+        data = json.dumps(tone_analyzer.tone(post.text, 'text/plain', sentences=None, tones='emotion', content_language=None, accept_language=None), indent=1)  # converting to string and storing in the data
         j = json.loads(data);
         post.info = j['document_tone']['tone_categories'][0]['tones']
         # post.info = json.dumps(post.info);
