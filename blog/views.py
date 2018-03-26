@@ -53,7 +53,7 @@ def post_list(request):
             target='fr')
         post.translatedText = json.dumps(translation, indent=2, ensure_ascii=False)
         t = json.loads(post.translatedText)
-        translations = t[0]#[int(0)]['translation']
+        translations = t#[0]#[int(0)]['translation']
         word_count = t[1]
         character_count = t[2]
         post.translatedText = translations
