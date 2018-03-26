@@ -54,7 +54,7 @@ def post_list(request):
         post.translatedText = json.dumps(translation, indent=2, ensure_ascii=False)
         t = json.loads(post.translatedText)
         translations = t#[0][0]['translation']
-        word_count = post.translatedText
+        word_count = translation#post.translatedText
         character_count = t[2]
         post.translatedText = translations
         post.wordcount = word_count
