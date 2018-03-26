@@ -47,6 +47,27 @@ def post_list(request):
         #post.sadScore = post.info[4]['score']
         # print(post.info[0]['tone_name'])
         
+        def word_count(string):
+            word_count = {}
+            string = string.lower().split(" ")
+            counter = 0
+            for word in string:
+                counter += 1
+                if word in word_count:
+                    word_count[word] += 1
+            return counter
+
+        def char_count(string):
+            word_count = {}
+
+            counter = 0
+            for word in string:
+                if word != ' ':
+                    counter += 1
+                if word in word_count:
+                    word_count[word] = word_count.get(word, 0) + 1
+            return counter
+        
         translation = language_translator.translate(
             text=post.text,
             source='en',
@@ -54,9 +75,11 @@ def post_list(request):
         post.translatedText = json.dumps(translation, indent=2, ensure_ascii=False)
         print(json.dumps(translation, indent=2, ensure_ascii=False))
         t = json.loads(post.translatedText)
+        
         translations = t
-        word_count = translation#post.translatedText
-        character_count = t[2]
+        word_count = word_count(translations)
+        character_count = char_count(translations)
+        
         post.translatedText = translations
         post.wordcount = word_count
         post.charCount = character_count
