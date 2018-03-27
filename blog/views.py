@@ -59,7 +59,6 @@ def post_list(request):
 
         def char_count(string):
             word_count = {}
-
             counter = 0
             for word in string:
                 if word != ' ':
